@@ -15,7 +15,7 @@ for the newer msgctxt keyword.
       keywords='Python Gettext Msgctxt',
       author='Hanno Schlichting',
       author_email='hanno@hannosch.info',
-      url='',
+      url='http://svn.plone.org/svn/collective/python-gettext/trunk',
       license='GPL',
       packages=find_packages(exclude=['ez_setup', 'tests']),
       include_package_data=True,
