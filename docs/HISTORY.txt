@@ -1,0 +1,9 @@
+Changelog for python-gettext
+
+    (name of developer listed in brackets)
+
+python-gettext - 0.1 Released June 19, 2007
+
+    - Initial implementation of a Msgfmt class which supports the generation of
+      Gettext mo files including support for the new msgctxt keyword.
+      [hannosch]
