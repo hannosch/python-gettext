@@ -2,6 +2,11 @@ Changelog for python-gettext
 
     (name of developer listed in brackets)
 
+python-gettext - 0.2 Released August 28, 2007
+
+    - Bumped version number to accommodate the number in the egg info.
+      [hannosch]
+
 python-gettext - 0.1 Released June 19, 2007
 
     - Initial implementation of a Msgfmt class which supports the generation of
