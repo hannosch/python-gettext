@@ -119,6 +119,12 @@ class Msgfmt:
 
     def get(self):
         """ """
+        self.read()
+        # Compute output
+        return self.generate()
+
+    def read(self):
+        """ """
         ID = 1
         STR = 2
         CTXT = 3
@@ -183,9 +189,6 @@ class Msgfmt:
         # Add last entry
         if section == STR:
             self.add(msgctxt, msgid, msgstr, fuzzy)
-
-        # Compute output
-        return self.generate()
 
     def getAsFile(self):
         return StringIO(self.get())
