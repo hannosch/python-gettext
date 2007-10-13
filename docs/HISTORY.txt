@@ -2,6 +2,12 @@ Changelog for python-gettext
 
     (name of developer listed in brackets)
 
+python-gettext - 0.4 Released October 13, 2007
+
+    - Added header_only argument to the read method, that allows to only parse
+      the header of a file without reading and parsing all the messages.
+      [hannosch]
+
 python-gettext - 0.3 Released August 25, 2007
 
     - Added an explicit read method, which only parses the po file and stores

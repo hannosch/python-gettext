@@ -53,15 +53,15 @@ class Msgfmt:
         self.messages = {}
 
     def readPoData(self):
-        """ read po data from self.po and store it in self.poLines """
+        """ read po data from self.po and return an iterator """
         output = []
         if isinstance(self.po, file):
             self.po.seek(0)
-            output = self.po.readlines()
+            output = self.po
         if isinstance(self.po, list):
             output = self.po
         if isinstance(self.po, str):
-            output = open(self.po, 'rb').readlines()
+            output = open(self.po, 'rb')
         if not output:
             raise ValueError, "self.po is invalid! %s" % type(self.po)
         return output
@@ -123,7 +123,7 @@ class Msgfmt:
         # Compute output
         return self.generate()
 
-    def read(self):
+    def read(self, header_only=False):
         """ """
         ID = 1
         STR = 2
@@ -133,11 +133,9 @@ class Msgfmt:
         fuzzy = 0
         msgid = msgstr = msgctxt = ''
 
-        lines = self.readPoData()
-
         # Parse the catalog
         lno = 0
-        for l in lines:
+        for l in self.readPoData():
             lno += 1
             # If we get a comment line after a msgstr or a line starting with
             # msgid or msgctxt, this is a new entry
@@ -148,6 +146,9 @@ class Msgfmt:
                 self.add(msgctxt, msgid, msgstr, fuzzy)
                 section = None
                 fuzzy = 0
+                # If we only want the header we stop after the first message
+                if header_only:
+                    break
             # Record a fuzzy mark
             if l[:2] == '#,' and 'fuzzy' in l:
                 fuzzy = 1
@@ -189,6 +190,9 @@ class Msgfmt:
         # Add last entry
         if section == STR:
             self.add(msgctxt, msgid, msgstr, fuzzy)
+
+        if isinstance(self.po, file):
+            self.po.close()
 
     def getAsFile(self):
         return StringIO(self.get())
