@@ -51,17 +51,19 @@ class Msgfmt:
         self.po = po
         self.name = name
         self.messages = {}
+        self.openfile = False
 
     def readPoData(self):
         """ read po data from self.po and return an iterator """
         output = []
-        if isinstance(self.po, file):
-            self.po.seek(0)
-            output = self.po
-        if isinstance(self.po, list):
-            output = self.po
         if isinstance(self.po, str):
             output = open(self.po, 'rb')
+        elif isinstance(self.po, file):
+            self.po.seek(0)
+            self.openfile = True
+            output = self.po
+        elif isinstance(self.po, list):
+            output = self.po
         if not output:
             raise ValueError, "self.po is invalid! %s" % type(self.po)
         return output
@@ -139,9 +141,9 @@ class Msgfmt:
             lno += 1
             # If we get a comment line after a msgstr or a line starting with
             # msgid or msgctxt, this is a new entry
-            if (l[0] == '#' or
+            if (l[0] == '#' or l[0] == 'm' and (
                 l.startswith('msgctxt') or
-                l.startswith('msgid')) and section == STR:
+                l.startswith('msgid')) and section == STR):
 
                 self.add(msgctxt, msgid, msgstr, fuzzy)
                 section = None
@@ -156,19 +158,20 @@ class Msgfmt:
             if l[0] == '#':
                 continue
             # Now we are in a msgctxt section
-            if l.startswith('msgctxt'):
-                section = CTXT
-                l = l[7:]
-                msgctxt = ''
-            # Now we are in a msgid section, output previous section
-            if l.startswith('msgid'):
-                section = ID
-                l = l[5:]
-                msgid = msgstr = ''
-            # Now we are in a msgstr section
-            elif l.startswith('msgstr'):
-                section = STR
-                l = l[6:]
+            elif l[0] == 'm':
+                if l.startswith('msgctxt'):
+                    section = CTXT
+                    l = l[7:]
+                    msgctxt = ''
+                # Now we are in a msgid section, output previous section
+                elif l.startswith('msgid'):
+                    section = ID
+                    l = l[5:]
+                    msgid = msgstr = ''
+                # Now we are in a msgstr section
+                elif l.startswith('msgstr'):
+                    section = STR
+                    l = l[6:]
             # Skip empty lines
             l = l.strip()
             if not l:
@@ -191,7 +194,7 @@ class Msgfmt:
         if section == STR:
             self.add(msgctxt, msgid, msgstr, fuzzy)
 
-        if isinstance(self.po, file):
+        if self.openfile:
             self.po.close()
 
     def getAsFile(self):
