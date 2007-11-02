@@ -27,9 +27,9 @@ class TestWriter(unittest.TestCase):
         po_file = None
         mo_file = None
         try:
-            po_file = file(os.path.join(self.folder, poname))
+            po_file = file(os.path.join(self.folder, poname), 'rb')
             po = Msgfmt(po_file).get()
-            mo_file = file(os.path.join(self.folder, moname))
+            mo_file = file(os.path.join(self.folder, moname), 'rb')
             mo = ''.join(mo_file.readlines())
         finally:
             if po_file is not None:
@@ -48,6 +48,11 @@ class TestWriter(unittest.TestCase):
     def test_msgctxt(self):
         self.compare_po_mo('test3.po', 'test3.mo')
 
+    def test_test4(self):
+        po_file = file(os.path.join(self.folder, 'test4.po'), 'rb')
+        po = Msgfmt(po_file)
+        po.read(header_only=True)
+        self.failUnless(po.messages[''].startswith('Project-Id-Version: foo'))
 
 def test_suite():
     from unittest import TestSuite, makeSuite

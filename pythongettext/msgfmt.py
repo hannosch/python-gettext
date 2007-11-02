@@ -141,9 +141,8 @@ class Msgfmt:
             lno += 1
             # If we get a comment line after a msgstr or a line starting with
             # msgid or msgctxt, this is a new entry
-            if (l[0] == '#' or l[0] == 'm' and (
-                l.startswith('msgctxt') or
-                l.startswith('msgid')) and section == STR):
+            if section == STR and (l[0] == '#' or (l[0] == 'm' and
+               (l.startswith('msgctxt') or l.startswith('msgid')))):
 
                 self.add(msgctxt, msgid, msgstr, fuzzy)
                 section = None
