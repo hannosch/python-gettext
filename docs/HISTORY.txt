@@ -1,32 +1,49 @@
-Changelog for python-gettext
+Changelog
+=========
 
-    (name of developer listed in brackets)
+1.0 - 2009-05-23
+----------------
 
-python-gettext - 0.5 Released November 1, 2007
+- Updated package description and metadata, relicense from GPL to BSD. Note
+  about Babel which supersedes this package in all possible ways.
+  [hannosch]
 
-    - Optimized file parsing by using more elif clauses and avoiding an insane
-      number of startswith and isinstance calls.
-      [hannosch]
+0.6 - 2007-11-02
+----------------
 
-python-gettext - 0.4 Released October 13, 2007
+- Fixed header parsing.
+  [hannosch]
 
-    - Added header_only argument to the read method, that allows to only parse
-      the header of a file without reading and parsing all the messages.
-      [hannosch]
+0.5 - 2007-11-01
+----------------
 
-python-gettext - 0.3 Released August 25, 2007
+- Optimized file parsing by using more elif clauses and avoiding an insane
+  number of startswith and isinstance calls.
+  [hannosch]
 
-    - Added an explicit read method, which only parses the po file and stores
-      it in the messages dict, but does not compile it.
-      [hannosch]
+0.4 - 2007-10-13
+----------------
 
-python-gettext - 0.2 Released August 23, 2007
+- Added header_only argument to the read method, that allows to only parse
+  the header of a file without reading and parsing all the messages.
+  [hannosch]
 
-    - Bumped version number to accommodate the number in the egg info.
-      [hannosch]
+0.3 - 2007-08-25
+----------------
 
-python-gettext - 0.1 Released June 19, 2007
+- Added an explicit read method, which only parses the po file and stores
+  it in the messages dict, but does not compile it.
+  [hannosch]
 
-    - Initial implementation of a Msgfmt class which supports the generation of
-      Gettext mo files including support for the new msgctxt keyword.
-      [hannosch]
+0.2 - 2007-08-23
+----------------
+
+- Bumped version number to accommodate the number in the egg info.
+  [hannosch]
+
+0.1 - 2007-06-19
+----------------
+
+- Initial implementation of a Msgfmt class which supports the generation of
+  Gettext mo files including support for the new msgctxt keyword.
+  [hannosch]
