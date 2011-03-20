@@ -176,7 +176,7 @@ class Msgfmt:
             l = l.strip()
             if not l:
                 continue
-            # XXX: Does this always follow Python escape semantics?
+            # TODO: Does this always follow Python escape semantics?
             try:
                 l = eval(l)
             except Exception, msg:
