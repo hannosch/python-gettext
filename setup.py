@@ -4,7 +4,7 @@ version = '1.0.1dev'
 
 setup(name='python-gettext',
       version=version,
-      description="Python Gettext implementation.",
+      description="Python Gettext po to mo file compiler.",
       long_description=open("README.txt").read() +  "\n" +
                        open("CHANGES.txt").read(),
       classifiers=[
@@ -17,7 +17,7 @@ setup(name='python-gettext',
       ],
       keywords='Python Gettext Msgctxt',
       author='Hanno Schlichting',
-      author_email='hannosch@hannosch.eu',
+      author_email='hanno@hannosch.eu',
       url='http://pypi.python.org/pypi/python-gettext',
       license='BSD',
       packages=find_packages(exclude=['ez_setup']),
