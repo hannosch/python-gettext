@@ -13,12 +13,6 @@ def this_folder(name):
     return os.path.dirname(os.path.abspath(module.__file__))
 
 
-class TestReader(unittest.TestCase):
-
-    def test_fail(self):
-        self.failIf(False)
-
-
 class TestWriter(unittest.TestCase):
     
     def setUp(self):
@@ -38,7 +32,7 @@ class TestWriter(unittest.TestCase):
             if mo_file is not None:
                 mo_file.close()
 
-        self.failUnless(mo == po)
+        self.assertEqual(mo, po)
 
     def test_test(self):
         self.compare_po_mo('test.po', 'test.mo')
@@ -53,7 +47,7 @@ class TestWriter(unittest.TestCase):
         po_file = file(os.path.join(self.folder, 'test4.po'), 'rb')
         po = Msgfmt(po_file)
         po.read(header_only=True)
-        self.failUnless(po.messages[''].startswith('Project-Id-Version: foo'))
+        self.assertTrue(po.messages[''].startswith('Project-Id-Version: foo'))
 
     def test_test5(self):
         po_file = file(os.path.join(self.folder, 'test5.po'), 'rb')
