@@ -22,7 +22,5 @@ setup(name='python-gettext',
       url='http://pypi.python.org/pypi/python-gettext',
       license='BSD',
       packages=['pythongettext', 'pythongettext.tests'],
-      include_package_data=True,
-      zip_safe=False,
       install_requires=['unittest2'],
       )
