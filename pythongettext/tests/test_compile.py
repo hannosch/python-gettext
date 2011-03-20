@@ -14,7 +14,7 @@ def this_folder(name):
 
 
 class TestWriter(unittest.TestCase):
-    
+
     def setUp(self):
         self.folder = this_folder(__name__)
 
