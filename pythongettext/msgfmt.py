@@ -6,7 +6,7 @@
 # translation service (PTS) of Zope
 #
 # Fixed some bugs and updated to support msgctxt
-# by Hanno Schlichting <hanno@hannosch.info>
+# by Hanno Schlichting <hanno@hannosch.eu>
 
 """Generate binary message catalog from textual translation description.
 
