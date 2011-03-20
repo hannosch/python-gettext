@@ -35,18 +35,19 @@ import struct
 import array
 from cStringIO import StringIO
 
-__version__ = "1.1-pythongettext"
 
 class PoSyntaxError(Exception):
     """ Syntax error in a po file """
+
     def __init__(self, msg):
         self.msg = msg
 
     def __str__(self):
         return 'Po file syntax error: %s' % self.msg
 
+
 class Msgfmt:
-    """ """
+
     def __init__(self, po, name='unknown'):
         self.po = po
         self.name = name
@@ -65,7 +66,7 @@ class Msgfmt:
         elif isinstance(self.po, list):
             output = self.po
         if not output:
-            raise ValueError, "self.po is invalid! %s" % type(self.po)
+            raise ValueError("self.po is invalid! %s" % type(self.po))
         return output
 
     def add(self, context, id, str, fuzzy):
@@ -179,7 +180,8 @@ class Msgfmt:
             try:
                 l = eval(l)
             except Exception, msg:
-                raise PoSyntaxError('%s (line %d of po file %s): \n%s' % (msg, lno, repr(self.name), l))
+                raise PoSyntaxError('%s (line %d of po file %s): \n%s' %
+                    (msg, lno, repr(self.name), l))
             if section == CTXT:
                 msgctxt += l
             elif section == ID:
@@ -187,7 +189,8 @@ class Msgfmt:
             elif section == STR:
                 msgstr += l
             else:
-                raise PoSyntaxError('error in line %d of po file %s' % (lno, repr(self.name)))
+                raise PoSyntaxError('error in line %d of po file %s' %
+                    (lno, repr(self.name)))
 
         # Add last entry
         if section == STR:
