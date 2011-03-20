@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
-version = '1.0.1dev'
+version = '1.1dev'
 
 setup(name='python-gettext',
       version=version,
       description="Python Gettext po to mo file compiler.",
-      long_description=open("README.txt").read() +  "\n" +
+      long_description=open("README.rst").read() +  "\n" +
                        open("CHANGES.txt").read(),
       classifiers=[
         'Intended Audience :: Developers',
