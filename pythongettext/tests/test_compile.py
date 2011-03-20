@@ -67,3 +67,6 @@ class TestWriter(unittest.TestCase):
         with self.assertRaises(PoSyntaxError) as e:
             po.read()
         self.assertTrue('line 19' in e.exception.msg)
+
+    def test_unicode_bom(self):
+        self.compare_po_mo('test_unicode_bom.po', 'test_unicode_bom.mo')

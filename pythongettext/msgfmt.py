@@ -31,8 +31,9 @@ Exceptions:
   * msgfmt.PoSyntaxError if the po file has syntax errors
 
 """
-import struct
 import array
+import codecs
+import struct
 from cStringIO import StringIO
 
 
@@ -67,6 +68,12 @@ class Msgfmt:
             output = self.po
         if not output:
             raise ValueError("self.po is invalid! %s" % type(self.po))
+        if isinstance(output, file):
+            # remove BOM from the start of the parsed input
+            first = output.readline()
+            if first.startswith(codecs.BOM_UTF8):
+                first = first.lstrip(codecs.BOM_UTF8)
+            return [first] + output.readlines()
         return output
 
     def add(self, context, id, str, fuzzy):

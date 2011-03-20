@@ -4,6 +4,10 @@ Changelog
 1.1 - unreleased
 ----------------
 
+- Handle Unicode Byte Order Mark at the beginning of files. This closes
+  http://dev.plone.org/plone/ticket/10813.
+  [hannosch, kleist]
+
 - Fixed potential UnicodeError in exception handling. This closes
   http://dev.plone.org/plone/ticket/11058.
   [hannosch, vincentfretin]
