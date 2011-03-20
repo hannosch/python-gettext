@@ -4,6 +4,9 @@ Changelog
 1.1 - unreleased
 ----------------
 
+- Fixed potential UnicodeError in exception handling. This closes
+  http://dev.plone.org/plone/ticket/11058.
+  [hannosch, vincentfretin]
 
 1.0 - 2009-05-23
 ----------------

@@ -23,4 +23,5 @@ setup(name='python-gettext',
       packages=find_packages(exclude=['ez_setup']),
       include_package_data=True,
       zip_safe=False,
+      install_requires=['unittest2'],
       )

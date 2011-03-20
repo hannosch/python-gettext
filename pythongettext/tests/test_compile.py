@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
-import unittest
 
-from cStringIO import StringIO
+import unittest2 as unittest
 
 from pythongettext.msgfmt import Msgfmt
+from pythongettext.msgfmt import PoSyntaxError
 
 
 def this_folder(name):
@@ -53,6 +54,19 @@ class TestWriter(unittest.TestCase):
         po = Msgfmt(po_file)
         po.read(header_only=True)
         self.failUnless(po.messages[''].startswith('Project-Id-Version: foo'))
+
+    def test_test5(self):
+        po_file = file(os.path.join(self.folder, 'test5.po'), 'rb')
+        po = Msgfmt(po_file)
+        with self.assertRaises(PoSyntaxError):
+            po.read()
+
+    def test_test5_unicode_name(self):
+        po_file = file(os.path.join(self.folder, 'test5.po'), 'rb')
+        po = Msgfmt(po_file, name=u'dømain')
+        with self.assertRaises(PoSyntaxError):
+            po.read()
+
 
 def test_suite():
     from unittest import TestSuite, makeSuite

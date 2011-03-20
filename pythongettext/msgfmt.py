@@ -179,7 +179,7 @@ class Msgfmt:
             try:
                 l = eval(l)
             except Exception, msg:
-                raise PoSyntaxError('%s (line %d of po file %s): \n%s' % (msg, lno, self.name, l))
+                raise PoSyntaxError('%s (line %d of po file %s): \n%s' % (msg, lno, repr(self.name), l))
             if section == CTXT:
                 msgctxt += l
             elif section == ID:
@@ -187,7 +187,7 @@ class Msgfmt:
             elif section == STR:
                 msgstr += l
             else:
-                raise PoSyntaxError('error in line %d of po file %s' % (lno, self.name))
+                raise PoSyntaxError('error in line %d of po file %s' % (lno, repr(self.name)))
 
         # Add last entry
         if section == STR:
