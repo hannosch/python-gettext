@@ -1,6 +1,7 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 version = '1.1dev'
+
 
 setup(name='python-gettext',
       version=version,
@@ -20,7 +21,7 @@ setup(name='python-gettext',
       author_email='hanno@hannosch.eu',
       url='http://pypi.python.org/pypi/python-gettext',
       license='BSD',
-      packages=find_packages(exclude=['ez_setup']),
+      packages=['pythongettext', 'pythongettext.tests'],
       include_package_data=True,
       zip_safe=False,
       install_requires=['unittest2'],
