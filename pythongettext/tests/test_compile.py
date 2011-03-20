@@ -60,3 +60,10 @@ class TestWriter(unittest.TestCase):
         po = Msgfmt(po_file, name=u'dømain')
         with self.assertRaises(PoSyntaxError):
             po.read()
+
+    def test_escape(self):
+        po_file = file(os.path.join(self.folder, 'test_escape.po'), 'rb')
+        po = Msgfmt(po_file)
+        with self.assertRaises(PoSyntaxError) as e:
+            po.read()
+        self.assertTrue('line 19' in e.exception.msg)
