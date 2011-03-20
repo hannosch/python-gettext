@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '1.1dev'
+version = '1.1'
 
 
 setup(name='python-gettext',
