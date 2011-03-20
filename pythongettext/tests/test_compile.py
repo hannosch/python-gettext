@@ -66,14 +66,3 @@ class TestWriter(unittest.TestCase):
         po = Msgfmt(po_file, name=u'dømain')
         with self.assertRaises(PoSyntaxError):
             po.read()
-
-
-def test_suite():
-    from unittest import TestSuite, makeSuite
-    suite = TestSuite()
-    suite.addTest(makeSuite(TestReader))
-    suite.addTest(makeSuite(TestWriter))
-    return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest="test_suite")
