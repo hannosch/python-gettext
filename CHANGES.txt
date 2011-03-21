@@ -4,6 +4,8 @@ Changelog
 1.2 - unreleased
 ----------------
 
+- Simplify test folder discovery.
+  [hannosch]
 
 1.1 - 2011-03-20
 ----------------
