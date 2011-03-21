@@ -23,4 +23,6 @@ setup(name='python-gettext',
       license='BSD',
       packages=['pythongettext', 'pythongettext.tests'],
       install_requires=['unittest2'],
+      include_package_data = True,
+      zip_safe = False,
       )
