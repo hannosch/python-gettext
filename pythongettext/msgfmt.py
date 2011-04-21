@@ -173,7 +173,7 @@ class Msgfmt:
                 # Now we are in a msgid section, output previous section
                 elif l.startswith('msgid') and not l.startswith('msgid_plural'):
                     if section == STR:
-                        add(msgid, msgstr, fuzzy)
+                        self.add(msgid, msgstr, fuzzy)
                     section = ID
                     l = l[5:]
                     msgid = msgstr = ''
@@ -181,9 +181,9 @@ class Msgfmt:
                 # This is a message with plural forms
                 elif l.startswith('msgid_plural'):
                     if section != ID:
-                        print >> sys.stderr, 'msgid_plural not preceeded by msgid on %s:%d' %\
-                            (infile, lno)
-                        sys.exit(1)
+                        raise PoSyntaxError('msgid_plural not preceeded by '
+                            'msgid on line %d of po file %s' %
+                            (lno, repr(self.name)))
                     l = l[12:]
                     msgid += '\0' # separator of singular and plural
                     is_plural = True
@@ -192,17 +192,17 @@ class Msgfmt:
                     section = STR
                     if l.startswith('msgstr['):
                         if not is_plural:
-                            print >> sys.stderr, 'plural without msgid_plural on %s:%d' %\
-                                (infile, lno)
-                            sys.exit(1)
+                            raise PoSyntaxError('plural without msgid_plural '
+                                'on line %d of po file %s' %
+                                (lno, repr(self.name)))
                         l = l.split(']', 1)[1]
                         if msgstr:
                             msgstr += '\0' # Separator of the various plural forms
                     else:
                         if is_plural:
-                            print >> sys.stderr, 'indexed msgstr required for plural on  %s:%d' %\
-                                (infile, lno)
-                            sys.exit(1)
+                            raise PoSyntaxError('indexed msgstr required for '
+                                'plural on line %d of po file %s' %
+                                (lno, repr(self.name)))
                         l = l[6:]
             # Skip empty lines
             l = l.strip()
@@ -221,7 +221,7 @@ class Msgfmt:
             elif section == STR:
                 msgstr += l
             else:
-                raise PoSyntaxError('error in line %d of po file %s' %
+                raise PoSyntaxError('error on line %d of po file %s' %
                     (lno, repr(self.name)))
 
         # Add last entry
