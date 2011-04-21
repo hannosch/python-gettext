@@ -10,3 +10,10 @@ is was supposed to do. Look at Babel (http://pypi.python.org/pypi/Babel) for a
 project more worthy of this projects name.
 
 Development takes place at https://github.com/hannosch/python-gettext
+
+Contributors
+------------
+
+* Hanno Schlichting
+* Christian Heimes
+* Andrei Polushin

@@ -4,6 +4,8 @@ Changelog
 1.2 - unreleased
 ----------------
 
+- Add support for messages with plural forms.
+  [Andrei Polushin]
 
 1.1.1 - 2011-03-21
 ------------------
