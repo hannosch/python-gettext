@@ -27,6 +27,9 @@ class TestWriter(unittest.TestCase):
 
         self.assertEqual(mo, po)
 
+    def test_empty(self):
+        self.compare_po_mo('test_empty.po', 'test_empty.mo')
+
     def test_test(self):
         self.compare_po_mo('test.po', 'test.mo')
 
