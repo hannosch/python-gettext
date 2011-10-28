@@ -71,6 +71,8 @@ class Msgfmt:
         if isinstance(output, file):
             # remove BOM from the start of the parsed input
             first = output.readline()
+            if len(first) == 0:
+                return output.readlines()
             if first.startswith(codecs.BOM_UTF8):
                 first = first.lstrip(codecs.BOM_UTF8)
             return [first] + output.readlines()
