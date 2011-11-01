@@ -4,6 +4,9 @@ Changelog
 1.2 - unreleased
 ----------------
 
+- Make sure empty `po` files don't break.
+  [Alexandru Plugaru]
+
 - Add support for messages with plural forms.
   [Andrei Polushin]
 
