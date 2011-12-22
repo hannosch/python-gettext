@@ -4,6 +4,9 @@ Changelog
 2.0 - unreleased
 ----------------
 
+- Handle non-latin-1 characters in the header correctly.
+  [hannosch]
+
 - Python 2 and 3 compatibility in the same codebase.
   [hannosch]
 

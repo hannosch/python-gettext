@@ -85,6 +85,15 @@ class TestWriter(unittest.TestCase):
             po_file.close()
         self.assertEqual(po.encoding, u('utf-8'))
 
+    def test_test6_unicode_header(self):
+        po_file = open(os.path.join(FOLDER, 'test6.po'), 'rb')
+        po = Msgfmt(po_file)
+        po.read(header_only=True)
+        po_file.close()
+        self.assertTrue(
+            po.messages[u('')].startswith(u('Project-Id-Version: Töst')))
+        self.assertEqual(po.encoding, u('utf-8'))
+
     def test_escape(self):
         po_file = open(os.path.join(FOLDER, 'test_escape.po'), 'rb')
         po = Msgfmt(po_file)

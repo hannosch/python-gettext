@@ -117,12 +117,14 @@ class Msgfmt:
             # The context is put before the id and separated by a EOT char.
             if context:
                 id = context + u('\x04') + id
-            self.messages[id] = string
             if not id:
                 # See whether there is an encoding declaration
                 charset = header_charset(string)
                 if charset:
+                    # decode header in proper encoding
+                    string = string.encode(self.encoding).decode(charset)
                     self.encoding = charset
+            self.messages[id] = string
 
     def generate(self):
         "Return the generated output."
