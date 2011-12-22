@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0 - unreleased
+2.0 - 2011-12-22
 ----------------
 
 - Tested successfully under PyPy 1.7.
