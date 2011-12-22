@@ -6,7 +6,7 @@ version = '1.3dev'
 setup(name='python-gettext',
       version=version,
       description="Python Gettext po to mo file compiler.",
-      long_description=open("README.rst").read() +  "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open("CHANGES.txt").read(),
       classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -26,6 +26,6 @@ setup(name='python-gettext',
       license='BSD',
       packages=['pythongettext', 'pythongettext.tests'],
       install_requires=['unittest2'],
-      include_package_data = True,
-      zip_safe = False,
+      include_package_data=True,
+      zip_safe=False,
       )
