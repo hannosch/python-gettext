@@ -4,6 +4,9 @@ Changelog
 2.0 - unreleased
 ----------------
 
+- Tested successfully under PyPy 1.7.
+  [hannosch]
+
 - Handle non-latin-1 characters in the header correctly.
   [hannosch]
 
