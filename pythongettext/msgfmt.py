@@ -29,12 +29,33 @@ Exceptions:
   * IOError if the file couldn't be read
 
   * msgfmt.PoSyntaxError if the po file has syntax errors
-
 """
+
 import array
 import codecs
 import struct
-from cStringIO import StringIO
+import sys
+
+PY3 = sys.version_info[0] == 3
+if PY3:
+    def b(s):
+        return s.encode("latin-1")
+
+    def u(s):
+        return s
+
+    import io
+    BytesIO = io.BytesIO
+    FILE_TYPE = io.IOBase
+else:
+    def b(s):
+        return s
+
+    def u(s):
+        return unicode(s, "unicode_escape")
+
+    from cStringIO import StringIO as BytesIO
+    FILE_TYPE = file
 
 
 class PoSyntaxError(Exception):
@@ -60,7 +81,7 @@ class Msgfmt:
         output = []
         if isinstance(self.po, str):
             output = open(self.po, 'rb')
-        elif isinstance(self.po, file):
+        elif isinstance(self.po, FILE_TYPE):
             self.po.seek(0)
             self.openfile = True
             output = self.po
@@ -68,7 +89,7 @@ class Msgfmt:
             output = self.po
         if not output:
             raise ValueError("self.po is invalid! %s" % type(self.po))
-        if isinstance(output, file):
+        if isinstance(output, FILE_TYPE):
             # remove BOM from the start of the parsed input
             first = output.readline()
             if len(first) == 0:
@@ -88,19 +109,18 @@ class Msgfmt:
 
     def generate(self):
         "Return the generated output."
-        keys = self.messages.keys()
         # the keys are sorted in the .mo file
-        keys.sort()
+        keys = sorted(self.messages.keys())
         offsets = []
-        ids = strs = ''
+        ids = strs = b('')
         for id in keys:
             # For each string, we need size and file offset. Each string is
             # NUL terminated; the NUL does not count into the size.
             offsets.append((len(ids), len(id), len(strs),
                             len(self.messages[id])))
-            ids += id + '\0'
-            strs += self.messages[id] + '\0'
-        output = ''
+            ids += id + b('\0')
+            strs += self.messages[id] + b('\0')
+        output = b('')
         # The header is 7 32-bit unsigned integers. We don't use hash tables,
         # so the keys start right after the index tables.
         keystart = 7 * 4 + 16 * len(keys)
@@ -236,4 +256,4 @@ class Msgfmt:
             self.po.close()
 
     def getAsFile(self):
-        return StringIO(self.get())
+        return BytesIO(self.get())
