@@ -49,6 +49,7 @@ if PY3:
         p = HeaderParser()
         return p.parsestr(s).get_content_charset()
 
+    from ast import literal_eval
     import io
     BytesIO = io.BytesIO
     FILE_TYPE = io.IOBase
@@ -62,6 +63,9 @@ else:
     def header_charset(s):
         p = HeaderParser()
         return p.parsestr(s.encode('utf-8', 'ignore')).get_content_charset()
+
+    def literal_eval(s):
+        return eval(s)
 
     from cStringIO import StringIO as BytesIO
     FILE_TYPE = file
@@ -257,7 +261,7 @@ class Msgfmt:
                 continue
             # TODO: Does this always follow Python escape semantics?
             try:
-                l = eval(l)
+                l = literal_eval(l)
             except Exception as msg:
                 raise PoSyntaxError('%s (line %d of po file %s): \n%s' %
                     (msg, lno, repr(self.name), l))
