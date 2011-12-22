@@ -56,7 +56,7 @@ class TestWriter(unittest.TestCase):
 
     def test_test5_unicode_name(self):
         po_file = file(os.path.join(FOLDER, 'test5.po'), 'rb')
-        po = Msgfmt(po_file, name=u'dømain')
+        po = Msgfmt(po_file, name=unicode('dømain', 'utf-8'))
         with self.assertRaises(PoSyntaxError):
             po.read()
 

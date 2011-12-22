@@ -118,7 +118,7 @@ class Msgfmt:
         # binary compatible with the gnu gettext format produced by:
         # msgfmt file.po --no-hash
         output = struct.pack("Iiiiiii",
-                             0x950412deL,       # Magic
+                             0x950412de,        # Magic
                              0,                 # Version
                              len(keys),         # # of entries
                              7 * 4,             # start of key index
@@ -215,7 +215,7 @@ class Msgfmt:
             # TODO: Does this always follow Python escape semantics?
             try:
                 l = eval(l)
-            except Exception, msg:
+            except Exception as msg:
                 raise PoSyntaxError('%s (line %d of po file %s): \n%s' %
                     (msg, lno, repr(self.name), l))
             if section == CTXT:
