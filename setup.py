@@ -1,3 +1,4 @@
+import os.path
 import sys
 from setuptools import setup
 
@@ -8,11 +9,17 @@ install_requires = []
 if not PY3:
     install_requires = ['unittest2']
 
+here = os.path.abspath(os.path.dirname(__file__))
+try:
+    README = open(os.path.join(here, 'README.rst')).read()
+    CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+except IOError:
+    README = CHANGES = ''
+
 setup(name='python-gettext',
       version=version,
       description="Python Gettext po to mo file compiler.",
-      long_description=open("README.rst").read() + "\n" +
-                       open("CHANGES.txt").read(),
+      long_description=README + '\n\n' +  CHANGES,
       classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
