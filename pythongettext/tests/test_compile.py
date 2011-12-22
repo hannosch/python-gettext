@@ -85,13 +85,16 @@ class TestWriter(unittest.TestCase):
             po_file.close()
         self.assertEqual(po.encoding, u('utf-8'))
 
+    def TODO_test_test6(self):
+        self.compare_po_mo('test6.po', 'test6.mo')
+
     def test_test6_unicode_header(self):
         po_file = open(os.path.join(FOLDER, 'test6.po'), 'rb')
         po = Msgfmt(po_file)
         po.read(header_only=True)
         po_file.close()
         self.assertTrue(
-            po.messages[u('')].startswith(u('Project-Id-Version: Töst')))
+            po.messages[u('')].startswith(u('Project-Id-Version: Tøst 1.0')))
         self.assertEqual(po.encoding, u('utf-8'))
 
     def test_escape(self):
