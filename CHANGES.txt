@@ -1,9 +1,11 @@
 Changelog
 =========
 
-1.3 - unreleased
+2.0 - unreleased
 ----------------
 
+- Python 2 and 3 compatibility in the same codebase.
+  [hannosch]
 
 1.2 - 2011-11-01
 ----------------

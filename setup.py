@@ -2,7 +2,7 @@ import os.path
 import sys
 from setuptools import setup
 
-version = '1.3dev'
+version = '2.0dev'
 
 PY3 = sys.version_info[0] == 3
 install_requires = []
@@ -28,6 +28,8 @@ setup(name='python-gettext',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
         'Topic :: Software Development :: Internationalization',
         'Topic :: Software Development :: Localization',
       ],

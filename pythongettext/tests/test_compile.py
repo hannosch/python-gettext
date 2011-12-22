@@ -35,7 +35,7 @@ class TestWriter(unittest.TestCase):
             po_file = open(os.path.join(FOLDER, poname), 'rb')
             po = Msgfmt(po_file).get()
             mo_file = open(os.path.join(FOLDER, moname), 'rb')
-            mo = ''.join(mo_file.readlines())
+            mo = b('').join(mo_file.readlines())
         finally:
             if po_file is not None:
                 po_file.close()
@@ -60,26 +60,41 @@ class TestWriter(unittest.TestCase):
         po_file = open(os.path.join(FOLDER, 'test4.po'), 'rb')
         po = Msgfmt(po_file)
         po.read(header_only=True)
-        self.assertTrue(po.messages[''].startswith('Project-Id-Version: foo'))
+        po_file.close()
+        self.assertTrue(
+            po.messages[u('')].startswith('Project-Id-Version: foo'))
+        self.assertEqual(po.encoding, u('iso-8859-1'))
 
     def test_test5(self):
         po_file = open(os.path.join(FOLDER, 'test5.po'), 'rb')
         po = Msgfmt(po_file)
-        with self.assertRaises(PoSyntaxError):
-            po.read()
+        try:
+            with self.assertRaises(PoSyntaxError):
+                po.read()
+        finally:
+            po_file.close()
+        self.assertEqual(po.encoding, u('utf-8'))
 
     def test_test5_unicode_name(self):
         po_file = open(os.path.join(FOLDER, 'test5.po'), 'rb')
         po = Msgfmt(po_file, name=u('dømain', 'utf-8'))
-        with self.assertRaises(PoSyntaxError):
-            po.read()
+        try:
+            with self.assertRaises(PoSyntaxError):
+                po.read()
+        finally:
+            po_file.close()
+        self.assertEqual(po.encoding, u('utf-8'))
 
     def test_escape(self):
         po_file = open(os.path.join(FOLDER, 'test_escape.po'), 'rb')
         po = Msgfmt(po_file)
-        with self.assertRaises(PoSyntaxError) as e:
-            po.read()
-        self.assertTrue('line 19' in e.exception.msg)
+        try:
+            with self.assertRaises(PoSyntaxError) as e:
+                po.read()
+            self.assertTrue('line 19' in e.exception.msg)
+            self.assertEqual(po.encoding, u('utf-8'))
+        finally:
+            po_file.close()
 
     def test_unicode_bom(self):
         self.compare_po_mo('test_unicode_bom.po', 'test_unicode_bom.mo')
