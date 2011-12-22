@@ -9,10 +9,13 @@ setup(name='python-gettext',
       long_description=open("README.rst").read() +  "\n" +
                        open("CHANGES.txt").read(),
       classifiers=[
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Internationalization',
         'Topic :: Software Development :: Localization',
       ],
