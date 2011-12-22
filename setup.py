@@ -1,7 +1,12 @@
+import sys
 from setuptools import setup
 
 version = '1.3dev'
 
+PY3 = sys.version_info[0] == 3
+install_requires = []
+if not PY3:
+    install_requires = ['unittest2']
 
 setup(name='python-gettext',
       version=version,
@@ -25,7 +30,8 @@ setup(name='python-gettext',
       url='http://pypi.python.org/pypi/python-gettext',
       license='BSD',
       packages=['pythongettext', 'pythongettext.tests'],
-      install_requires=['unittest2'],
+      install_requires=install_requires,
       include_package_data=True,
       zip_safe=False,
+      test_suite="pythongettext.tests",
       )
