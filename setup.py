@@ -19,7 +19,7 @@ except IOError:
 setup(name='python-gettext',
       version=version,
       description="Python Gettext po to mo file compiler.",
-      long_description=README + '\n\n' +  CHANGES,
+      long_description=README + '\n\n' + CHANGES,
       classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
