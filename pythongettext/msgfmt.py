@@ -127,6 +127,9 @@ class Msgfmt:
                 if charset:
                     # decode header in proper encoding
                     string = string.encode(self.encoding).decode(charset)
+                    if not PY3:
+                        # undo damage done by literal_eval in Python 2.x
+                        string = string.encode(self.encoding).decode(charset)
                     self.encoding = charset
             self.messages[id] = string
 
