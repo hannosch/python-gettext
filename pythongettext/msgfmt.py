@@ -103,7 +103,7 @@ class Msgfmt:
         output = ''
         # The header is 7 32-bit unsigned integers. We don't use hash tables,
         # so the keys start right after the index tables.
-        keystart = 7*4+16*len(keys)
+        keystart = 7 * 4 + 16 * len(keys)
         # and the values start after the keys
         valuestart = keystart + len(ids)
         koffsets = []
@@ -111,8 +111,8 @@ class Msgfmt:
         # The string table first has the list of keys, then the list of values.
         # Each entry has first the size of the string, then the file offset.
         for o1, l1, o2, l2 in offsets:
-            koffsets += [l1, o1+keystart]
-            voffsets += [l2, o2+valuestart]
+            koffsets += [l1, o1 + keystart]
+            voffsets += [l2, o2 + valuestart]
         offsets = koffsets + voffsets
         # Even though we don't use a hashtable, we still set its offset to be
         # binary compatible with the gnu gettext format produced by:
@@ -121,8 +121,8 @@ class Msgfmt:
                              0x950412deL,       # Magic
                              0,                 # Version
                              len(keys),         # # of entries
-                             7*4,               # start of key index
-                             7*4+len(keys)*8,   # start of value index
+                             7 * 4,             # start of key index
+                             7 * 4 + len(keys) * 8,  # start of value index
                              0, keystart)       # size and offset of hash table
         output += array.array("i", offsets).tostring()
         output += ids
@@ -173,7 +173,8 @@ class Msgfmt:
                     l = l[7:]
                     msgctxt = ''
                 # Now we are in a msgid section, output previous section
-                elif l.startswith('msgid') and not l.startswith('msgid_plural'):
+                elif (l.startswith('msgid') and
+                      not l.startswith('msgid_plural')):
                     if section == STR:
                         self.add(msgid, msgstr, fuzzy)
                     section = ID
@@ -187,7 +188,7 @@ class Msgfmt:
                             'msgid on line %d of po file %s' %
                             (lno, repr(self.name)))
                     l = l[12:]
-                    msgid += '\0' # separator of singular and plural
+                    msgid += '\0'  # separator of singular and plural
                     is_plural = True
                 # Now we are in a msgstr section
                 elif l.startswith('msgstr'):
@@ -199,7 +200,8 @@ class Msgfmt:
                                 (lno, repr(self.name)))
                         l = l.split(']', 1)[1]
                         if msgstr:
-                            msgstr += '\0' # Separator of the various plural forms
+                            # Separator of the various plural forms
+                            msgstr += '\0'
                     else:
                         if is_plural:
                             raise PoSyntaxError('indexed msgstr required for '
