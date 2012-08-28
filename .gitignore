@@ -7,6 +7,6 @@ eggs
 include
 lib
 parts
-.*
+.tox/
 *.pyc
 *.egg-info
