@@ -16,11 +16,12 @@ try:
 except IOError:
     README = CHANGES = ''
 
-setup(name='python-gettext',
-      version=version,
-      description="Python Gettext po to mo file compiler.",
-      long_description=README + '\n\n' + CHANGES,
-      classifiers=[
+setup(
+    name='python-gettext',
+    version=version,
+    description="Python Gettext po to mo file compiler.",
+    long_description=README + '\n\n' + CHANGES,
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
@@ -35,15 +36,15 @@ setup(name='python-gettext',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Internationalization',
         'Topic :: Software Development :: Localization',
-      ],
-      keywords='Python Gettext Msgctxt',
-      author='Hanno Schlichting',
-      author_email='hanno@hannosch.eu',
-      url='http://pypi.python.org/pypi/python-gettext',
-      license='BSD',
-      packages=['pythongettext', 'pythongettext.tests'],
-      install_requires=install_requires,
-      include_package_data=True,
-      zip_safe=False,
-      test_suite="pythongettext.tests",
-      )
+    ],
+    keywords='Python Gettext Msgctxt',
+    author='Hanno Schlichting',
+    author_email='hanno@hannosch.eu',
+    url='http://pypi.python.org/pypi/python-gettext',
+    license='BSD',
+    packages=['pythongettext', 'pythongettext.tests'],
+    install_requires=install_requires,
+    include_package_data=True,
+    zip_safe=False,
+    test_suite="pythongettext.tests",
+)
