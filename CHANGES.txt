@@ -4,6 +4,10 @@ Changelog
 2.1 - unreleased
 ----------------
 
+- Prefer `ast.literal_eval` over `eval` under Python 2, instead of just under
+  Python 3. We only support Python 2.6+ where the function is available.
+  [hannosch]
+
 - Tested successfully under Python 3.3.
   [hannosch]
 
