@@ -2,7 +2,7 @@ import os.path
 import sys
 from setuptools import setup
 
-version = '2.1dev'
+version = '2.2dev'
 
 PY3 = sys.version_info[0] == 3
 install_requires = []

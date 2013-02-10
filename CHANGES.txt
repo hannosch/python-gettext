@@ -1,7 +1,11 @@
 Changelog
 =========
 
-2.1 - unreleased
+2.2 - unreleased
+----------------
+
+
+2.1 - 2013-02-10
 ----------------
 
 - Prefer `ast.literal_eval` over `eval` under Python 2, instead of just under
