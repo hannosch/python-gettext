@@ -4,6 +4,8 @@ Changelog
 2.1 - unreleased
 ----------------
 
+- Tested successfully under Python 3.3.
+  [hannosch]
 
 2.0 - 2011-12-22
 ----------------
