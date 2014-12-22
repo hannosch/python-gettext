@@ -26,3 +26,4 @@ Contributors
 * Hanno Schlichting
 * Christian Heimes
 * Andrei Polushin
+* Michael Howitz
