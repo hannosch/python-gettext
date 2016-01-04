@@ -2,7 +2,7 @@ import os.path
 import sys
 from setuptools import setup
 
-version = '2.2dev'
+version = '3.0'
 
 install_requires = []
 if sys.version_info < (2, 7):

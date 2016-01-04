@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2 - unreleased
+3.0 - 2016-01-04
 ----------------
 
 - Use `u''` strings again for easier cross Python 2/3 code.
