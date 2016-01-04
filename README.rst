@@ -11,15 +11,6 @@ project more worthy of this projects name.
 
 Development takes place at https://github.com/hannosch/python-gettext
 
-Current Development CI Status
------------------------------
-
-.. image:: https://travis-ci.org/hannosch/python-gettext.png?branch=master
-   :width: 82px
-   :height: 13px
-   :alt: Travis CI build report
-   :target: https://travis-ci.org/hannosch/python-gettext
-
 Contributors
 ------------
 
