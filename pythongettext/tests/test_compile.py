@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-import sys
 
 from pythongettext.msgfmt import Msgfmt
 from pythongettext.msgfmt import PoSyntaxError
@@ -10,20 +9,6 @@ except ImportError:  # Python 2.7 or newer
     import unittest
 
 FOLDER = os.path.dirname(__file__)
-
-PY3 = sys.version_info[0] == 3
-if PY3:
-    def b(s):
-        return s.encode("latin-1")
-
-    def u(s, enc=None):
-        return s
-else:
-    def b(s):
-        return s
-
-    def u(s, enc="unicode_escape"):
-        return unicode(s, enc)
 
 
 class TestWriter(unittest.TestCase):
@@ -35,7 +20,7 @@ class TestWriter(unittest.TestCase):
             po_file = open(os.path.join(FOLDER, poname), 'rb')
             po = Msgfmt(po_file).get()
             mo_file = open(os.path.join(FOLDER, moname), 'rb')
-            mo = b('').join(mo_file.readlines())
+            mo = b''.join(mo_file.readlines())
         finally:
             if po_file is not None:
                 po_file.close()
@@ -62,8 +47,8 @@ class TestWriter(unittest.TestCase):
         po.read(header_only=True)
         po_file.close()
         self.assertTrue(
-            po.messages[u('')].startswith('Project-Id-Version: foo'))
-        self.assertEqual(po.encoding, u('iso-8859-1'))
+            po.messages[u''].startswith('Project-Id-Version: foo'))
+        self.assertEqual(po.encoding, u'iso-8859-1')
 
     def test_test5(self):
         po_file = open(os.path.join(FOLDER, 'test5.po'), 'rb')
@@ -73,17 +58,17 @@ class TestWriter(unittest.TestCase):
                 po.read()
         finally:
             po_file.close()
-        self.assertEqual(po.encoding, u('utf-8'))
+        self.assertEqual(po.encoding, u'utf-8')
 
     def test_test5_unicode_name(self):
         po_file = open(os.path.join(FOLDER, 'test5.po'), 'rb')
-        po = Msgfmt(po_file, name=u('dømain', 'utf-8'))
+        po = Msgfmt(po_file, name=u'dømain')
         try:
             with self.assertRaises(PoSyntaxError):
                 po.read()
         finally:
             po_file.close()
-        self.assertEqual(po.encoding, u('utf-8'))
+        self.assertEqual(po.encoding, u'utf-8')
 
     def test_test6(self):
         self.compare_po_mo('test6.po', 'test6.mo')
@@ -93,9 +78,9 @@ class TestWriter(unittest.TestCase):
         po = Msgfmt(po_file)
         po.read(header_only=True)
         po_file.close()
-        self.assertTrue(po.messages[u('')].startswith(
-            u('Project-Id-Version: Tøst 1.0', 'utf-8')))
-        self.assertEqual(po.encoding, u('utf-8'))
+        self.assertTrue(po.messages[u''].startswith(
+            u'Project-Id-Version: Tøst 1.0'))
+        self.assertEqual(po.encoding, u'utf-8')
 
     def test_escape(self):
         po_file = open(os.path.join(FOLDER, 'test_escape.po'), 'rb')
@@ -104,7 +89,7 @@ class TestWriter(unittest.TestCase):
             with self.assertRaises(PoSyntaxError) as e:
                 po.read()
             self.assertTrue('line 19' in e.exception.msg)
-            self.assertEqual(po.encoding, u('utf-8'))
+            self.assertEqual(po.encoding, u'utf-8')
         finally:
             po_file.close()
 

@@ -4,6 +4,9 @@ Changelog
 2.2 - unreleased
 ----------------
 
+- Use `u''` strings again for easier cross Python 2/3 code.
+  [hannosch]
+
 - #5: Fix plural form support under Python 3.x.
   [hannosch]
 

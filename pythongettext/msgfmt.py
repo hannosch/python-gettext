@@ -40,12 +40,6 @@ import sys
 
 PY3 = sys.version_info[0] == 3
 if PY3:
-    def b(s):
-        return s.encode("latin-1")
-
-    def u(s, enc=None):
-        return s
-
     def header_charset(s):
         p = HeaderParser()
         return p.parsestr(s).get_content_charset()
@@ -54,12 +48,6 @@ if PY3:
     BytesIO = io.BytesIO
     FILE_TYPE = io.IOBase
 else:
-    def b(s):
-        return s
-
-    def u(s, enc="unicode_escape"):
-        return unicode(s, enc)
-
     def header_charset(s):
         p = HeaderParser()
         return p.parsestr(s.encode('utf-8', 'ignore')).get_content_charset()
@@ -117,7 +105,7 @@ class Msgfmt:
         if string and not fuzzy:
             # The context is put before the id and separated by a EOT char.
             if context:
-                id = context + u('\x04') + id
+                id = context + u'\x04' + id
             if not id:
                 # See whether there is an encoding declaration
                 charset = header_charset(string)
@@ -135,7 +123,7 @@ class Msgfmt:
         # the keys are sorted in the .mo file
         keys = sorted(self.messages.keys())
         offsets = []
-        ids = strs = b('')
+        ids = strs = b''
         for id in keys:
             msg = self.messages[id].encode(self.encoding)
             id = id.encode(self.encoding)
@@ -143,9 +131,9 @@ class Msgfmt:
             # NUL terminated; the NUL does not count into the size.
             offsets.append((len(ids), len(id), len(strs),
                             len(msg)))
-            ids += id + b('\0')
-            strs += msg + b('\0')
-        output = b('')
+            ids += id + b'\0'
+            strs += msg + b'\0'
+        output = b''
         # The header is 7 32-bit unsigned integers. We don't use hash tables,
         # so the keys start right after the index tables.
         keystart = 7 * 4 + 16 * len(keys)
@@ -191,7 +179,7 @@ class Msgfmt:
 
         section = None
         fuzzy = 0
-        msgid = msgstr = msgctxt = u('')
+        msgid = msgstr = msgctxt = u''
 
         # Parse the catalog
         lno = 0
@@ -218,7 +206,7 @@ class Msgfmt:
             if l.startswith('msgctxt'):
                 section = CTXT
                 l = l[7:]
-                msgctxt = u('')
+                msgctxt = u''
             # Now we are in a msgid section, output previous section
             elif (l.startswith('msgid') and
                   not l.startswith('msgid_plural')):
@@ -226,7 +214,7 @@ class Msgfmt:
                     self.add(msgid, msgstr, fuzzy)
                 section = ID
                 l = l[5:]
-                msgid = msgstr = u('')
+                msgid = msgstr = u''
                 is_plural = False
             # This is a message with plural forms
             elif l.startswith('msgid_plural'):
@@ -235,7 +223,7 @@ class Msgfmt:
                         'msgid on line %d of po file %s' %
                         (lno, repr(self.name)))
                 l = l[12:]
-                msgid += u('\0')  # separator of singular and plural
+                msgid += u'\0'  # separator of singular and plural
                 is_plural = True
             # Now we are in a msgstr section
             elif l.startswith('msgstr'):
@@ -248,7 +236,7 @@ class Msgfmt:
                     l = l.split(']', 1)[1]
                     if msgstr:
                         # Separator of the various plural forms
-                        msgstr += u('\0')
+                        msgstr += u'\0'
                 else:
                     if is_plural:
                         raise PoSyntaxError('indexed msgstr required for '
@@ -265,7 +253,8 @@ class Msgfmt:
             except Exception as msg:
                 raise PoSyntaxError('%s (line %d of po file %s): \n%s' %
                     (msg, lno, repr(self.name), l))
-            l = u(l, self.encoding)
+            if isinstance(l, bytes):
+                l = l.decode(self.encoding)
             if section == CTXT:
                 msgctxt += l
             elif section == ID:
