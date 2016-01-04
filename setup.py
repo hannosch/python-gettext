@@ -4,9 +4,8 @@ from setuptools import setup
 
 version = '2.2dev'
 
-PY3 = sys.version_info[0] == 3
 install_requires = []
-if not PY3:
+if sys.version_info < (2, 7):
     install_requires = ['unittest2']
 
 here = os.path.abspath(os.path.dirname(__file__))

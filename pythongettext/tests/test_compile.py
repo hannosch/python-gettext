@@ -4,6 +4,10 @@ import sys
 
 from pythongettext.msgfmt import Msgfmt
 from pythongettext.msgfmt import PoSyntaxError
+try:
+    import unittest2 as unittest
+except ImportError:  # Python 2.7 or newer
+    import unittest
 
 FOLDER = os.path.dirname(__file__)
 
@@ -14,16 +18,12 @@ if PY3:
 
     def u(s, enc=None):
         return s
-
-    import unittest
 else:
     def b(s):
         return s
 
     def u(s, enc="unicode_escape"):
         return unicode(s, enc)
-
-    import unittest2 as unittest
 
 
 class TestWriter(unittest.TestCase):
