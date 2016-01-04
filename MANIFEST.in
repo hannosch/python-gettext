@@ -5,3 +5,4 @@ recursive-include pythongettext *
 
 global-exclude *.pyc
 global-exclude *.pyo
+global-exclude .DS_Store
