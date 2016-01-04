@@ -4,8 +4,11 @@ Changelog
 2.2 - unreleased
 ----------------
 
-- Break dependency on ``unittest2`` for Python 2.7. [icemac]
+- #5: Fix plural form support under Python 3.x.
+  [hannosch]
 
+- Break dependency on ``unittest2`` for Python 2.7.
+  [icemac]
 
 2.1 - 2013-02-10
 ----------------

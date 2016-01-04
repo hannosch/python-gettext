@@ -235,7 +235,7 @@ class Msgfmt:
                         'msgid on line %d of po file %s' %
                         (lno, repr(self.name)))
                 l = l[12:]
-                msgid += b('\0')  # separator of singular and plural
+                msgid += u('\0')  # separator of singular and plural
                 is_plural = True
             # Now we are in a msgstr section
             elif l.startswith('msgstr'):
@@ -248,7 +248,7 @@ class Msgfmt:
                     l = l.split(']', 1)[1]
                     if msgstr:
                         # Separator of the various plural forms
-                        msgstr += b('\0')
+                        msgstr += u('\0')
                 else:
                     if is_plural:
                         raise PoSyntaxError('indexed msgstr required for '

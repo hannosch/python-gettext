@@ -110,3 +110,15 @@ class TestWriter(unittest.TestCase):
 
     def test_unicode_bom(self):
         self.compare_po_mo('test_unicode_bom.po', 'test_unicode_bom.mo')
+
+    def test_plural(self):
+        po_file = open(os.path.join(FOLDER, 'test_plural.po'), 'rb')
+        po = Msgfmt(po_file)
+        try:
+            po.read()
+        finally:
+            po_file.close()
+        self.assertEqual(
+            set(po.messages.keys()),
+            set([u'', u'm1', u'm2 ø\x00{d} ømsgid',
+                 u'øcontext\x04m3 ø\x00{d} ømsgid context']))
