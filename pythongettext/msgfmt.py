@@ -219,7 +219,8 @@ class Msgfmt:
             # This is a message with plural forms
             elif l.startswith('msgid_plural'):
                 if section != ID:
-                    raise PoSyntaxError('msgid_plural not preceeded by '
+                    raise PoSyntaxError(
+                        'msgid_plural not preceeded by '
                         'msgid on line %d of po file %s' %
                         (lno, repr(self.name)))
                 l = l[12:]
@@ -230,7 +231,8 @@ class Msgfmt:
                 section = STR
                 if l.startswith('msgstr['):
                     if not is_plural:
-                        raise PoSyntaxError('plural without msgid_plural '
+                        raise PoSyntaxError(
+                            'plural without msgid_plural '
                             'on line %d of po file %s' %
                             (lno, repr(self.name)))
                     l = l.split(']', 1)[1]
@@ -239,7 +241,8 @@ class Msgfmt:
                         msgstr += u'\0'
                 else:
                     if is_plural:
-                        raise PoSyntaxError('indexed msgstr required for '
+                        raise PoSyntaxError(
+                            'indexed msgstr required for '
                             'plural on line %d of po file %s' %
                             (lno, repr(self.name)))
                     l = l[6:]
@@ -251,7 +254,8 @@ class Msgfmt:
             try:
                 l = literal_eval(l)
             except Exception as msg:
-                raise PoSyntaxError('%s (line %d of po file %s): \n%s' %
+                raise PoSyntaxError(
+                    '%s (line %d of po file %s): \n%s' %
                     (msg, lno, repr(self.name), l))
             if isinstance(l, bytes):
                 l = l.decode(self.encoding)
@@ -262,7 +266,8 @@ class Msgfmt:
             elif section == STR:
                 msgstr += l
             else:
-                raise PoSyntaxError('error on line %d of po file %s' %
+                raise PoSyntaxError(
+                    'error on line %d of po file %s' %
                     (lno, repr(self.name)))
 
         # Add last entry
