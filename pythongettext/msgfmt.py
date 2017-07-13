@@ -183,92 +183,93 @@ class Msgfmt:
 
         # Parse the catalog
         lno = 0
-        for l in self.readPoData():
-            l = l.decode(self.encoding)
-            lno += 1
-            # If we get a comment line after a msgstr or a line starting with
-            # msgid or msgctxt, this is a new entry
-            if section == STR and (l[0] == '#' or (l[0] == 'm' and
-               (l.startswith('msgctxt') or l.startswith('msgid')))):
-                self.add(msgctxt, msgid, msgstr, fuzzy)
-                section = None
-                fuzzy = 0
-                # If we only want the header we stop after the first message
-                if header_only:
-                    break
-            # Record a fuzzy mark
-            if l[:2] == '#,' and 'fuzzy' in l:
-                fuzzy = 1
-            # Skip comments
-            if l[0] == '#':
-                continue
-            # Now we are in a msgctxt section
-            if l.startswith('msgctxt'):
-                section = CTXT
-                l = l[7:]
-                msgctxt = u''
-            # Now we are in a msgid section, output previous section
-            elif (l.startswith('msgid') and
-                  not l.startswith('msgid_plural')):
-                if section == STR:
-                    self.add(msgid, msgstr, fuzzy)
-                section = ID
-                l = l[5:]
-                msgid = msgstr = u''
-                is_plural = False
-            # This is a message with plural forms
-            elif l.startswith('msgid_plural'):
-                if section != ID:
-                    raise PoSyntaxError(
-                        'msgid_plural not preceeded by '
-                        'msgid on line %d of po file %s' %
-                        (lno, repr(self.name)))
-                l = l[12:]
-                msgid += u'\0'  # separator of singular and plural
-                is_plural = True
-            # Now we are in a msgstr section
-            elif l.startswith('msgstr'):
-                section = STR
-                if l.startswith('msgstr['):
-                    if not is_plural:
-                        raise PoSyntaxError(
-                            'plural without msgid_plural '
-                            'on line %d of po file %s' %
-                            (lno, repr(self.name)))
-                    l = l.split(']', 1)[1]
-                    if msgstr:
-                        # Separator of the various plural forms
-                        msgstr += u'\0'
-                else:
-                    if is_plural:
-                        raise PoSyntaxError(
-                            'indexed msgstr required for '
-                            'plural on line %d of po file %s' %
-                            (lno, repr(self.name)))
-                    l = l[6:]
-            # Skip empty lines
-            l = l.strip()
-            if not l:
-                continue
-            # TODO: Does this always follow Python escape semantics?
-            try:
-                l = literal_eval(l)
-            except Exception as msg:
-                raise PoSyntaxError(
-                    '%s (line %d of po file %s): \n%s' %
-                    (msg, lno, repr(self.name), l))
-            if isinstance(l, bytes):
+        with self.readPoData() as pofile
+            for l in pofile:
                 l = l.decode(self.encoding)
-            if section == CTXT:
-                msgctxt += l
-            elif section == ID:
-                msgid += l
-            elif section == STR:
-                msgstr += l
-            else:
-                raise PoSyntaxError(
-                    'error on line %d of po file %s' %
-                    (lno, repr(self.name)))
+                lno += 1
+                # If we get a comment line after a msgstr or a line starting with
+                # msgid or msgctxt, this is a new entry
+                if section == STR and (l[0] == '#' or (l[0] == 'm' and
+                   (l.startswith('msgctxt') or l.startswith('msgid')))):
+                    self.add(msgctxt, msgid, msgstr, fuzzy)
+                    section = None
+                    fuzzy = 0
+                    # If we only want the header we stop after the first message
+                    if header_only:
+                        break
+                # Record a fuzzy mark
+                if l[:2] == '#,' and 'fuzzy' in l:
+                    fuzzy = 1
+                # Skip comments
+                if l[0] == '#':
+                    continue
+                # Now we are in a msgctxt section
+                if l.startswith('msgctxt'):
+                    section = CTXT
+                    l = l[7:]
+                    msgctxt = u''
+                # Now we are in a msgid section, output previous section
+                elif (l.startswith('msgid') and
+                      not l.startswith('msgid_plural')):
+                    if section == STR:
+                        self.add(msgid, msgstr, fuzzy)
+                    section = ID
+                    l = l[5:]
+                    msgid = msgstr = u''
+                    is_plural = False
+                # This is a message with plural forms
+                elif l.startswith('msgid_plural'):
+                    if section != ID:
+                        raise PoSyntaxError(
+                            'msgid_plural not preceeded by '
+                            'msgid on line %d of po file %s' %
+                            (lno, repr(self.name)))
+                    l = l[12:]
+                    msgid += u'\0'  # separator of singular and plural
+                    is_plural = True
+                # Now we are in a msgstr section
+                elif l.startswith('msgstr'):
+                    section = STR
+                    if l.startswith('msgstr['):
+                        if not is_plural:
+                            raise PoSyntaxError(
+                                'plural without msgid_plural '
+                                'on line %d of po file %s' %
+                                (lno, repr(self.name)))
+                        l = l.split(']', 1)[1]
+                        if msgstr:
+                            # Separator of the various plural forms
+                            msgstr += u'\0'
+                    else:
+                        if is_plural:
+                            raise PoSyntaxError(
+                                'indexed msgstr required for '
+                                'plural on line %d of po file %s' %
+                                (lno, repr(self.name)))
+                        l = l[6:]
+                # Skip empty lines
+                l = l.strip()
+                if not l:
+                    continue
+                # TODO: Does this always follow Python escape semantics?
+                try:
+                    l = literal_eval(l)
+                except Exception as msg:
+                    raise PoSyntaxError(
+                        '%s (line %d of po file %s): \n%s' %
+                        (msg, lno, repr(self.name), l))
+                if isinstance(l, bytes):
+                    l = l.decode(self.encoding)
+                if section == CTXT:
+                    msgctxt += l
+                elif section == ID:
+                    msgid += l
+                elif section == STR:
+                    msgstr += l
+                else:
+                    raise PoSyntaxError(
+                        'error on line %d of po file %s' %
+                        (lno, repr(self.name)))
 
         # Add last entry
         if section == STR:
