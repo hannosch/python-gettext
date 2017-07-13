@@ -183,7 +183,7 @@ class Msgfmt:
 
         # Parse the catalog
         lno = 0
-        with self.readPoData() as pofile
+        with self.readPoData() as pofile:
             for l in pofile:
                 l = l.decode(self.encoding)
                 lno += 1
