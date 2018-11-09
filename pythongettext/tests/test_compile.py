@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
+import unittest
 
 from pythongettext.msgfmt import Msgfmt
 from pythongettext.msgfmt import PoSyntaxError
-try:
-    import unittest2 as unittest
-except ImportError:  # Python 2.7 or newer
-    import unittest
 
 FOLDER = os.path.dirname(__file__)
 
