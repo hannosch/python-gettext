@@ -1,12 +1,9 @@
 import os.path
-import sys
 from setuptools import setup
 
 version = '3.1.dev'
 
 install_requires = []
-if sys.version_info < (2, 7):
-    install_requires = ['unittest2']
 
 here = os.path.abspath(os.path.dirname(__file__))
 try:
