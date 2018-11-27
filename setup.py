@@ -1,7 +1,7 @@
 import os.path
 from setuptools import setup
 
-version = '3.1.dev'
+version = '4.0'
 
 install_requires = []
 
