@@ -4,6 +4,12 @@ Changelog
 3.1 - unreleased
 ----------------
 
+- Add support for Python 3.6 and 3.7.
+  [sallner]
+
+- Drop support for Python 2.6.
+  [sallner]
+
 
 3.0 - 2016-01-04
 ----------------

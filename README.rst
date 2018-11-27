@@ -18,3 +18,4 @@ Contributors
 * Christian Heimes
 * Andrei Polushin
 * Michael Howitz
+* Steffen Allner
