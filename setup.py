@@ -37,7 +37,7 @@ setup(
     keywords='Python Gettext Msgctxt',
     author='Hanno Schlichting',
     author_email='hanno@hannosch.eu',
-    url='http://pypi.python.org/pypi/python-gettext',
+    url='https://github.com/hannosch/python-gettext',
     license='BSD',
     packages=['pythongettext', 'pythongettext.tests'],
     install_requires=install_requires,
