@@ -5,6 +5,7 @@ import unittest
 from pythongettext.msgfmt import Msgfmt
 from pythongettext.msgfmt import PoSyntaxError
 
+
 FOLDER = os.path.dirname(__file__)
 
 

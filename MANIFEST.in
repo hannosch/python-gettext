@@ -1,8 +1,11 @@
+# Generated from:
+# https://github.com/zopefoundation/meta/tree/master/config/pure-python
+include *.md
 include *.rst
 include *.txt
+include buildout.cfg
+include tox.ini
 
-recursive-include pythongettext *
-
-global-exclude *.pyc
-global-exclude *.pyo
-global-exclude .DS_Store
+recursive-include src *.py
+recursive-include src *.po
+recursive-include src *.pot

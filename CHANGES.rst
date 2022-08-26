@@ -4,7 +4,11 @@ Changelog
 4.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add support for Python 3.8, 3.9, 3.10.
+
+- Drop support for Python 3.4.
+
+- Drop support for running the tests using ``python setup.py test``.
 
 
 4.0 (2018-11-27)
