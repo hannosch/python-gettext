@@ -4,11 +4,11 @@ Changelog
 4.1 (unreleased)
 ----------------
 
-- Add support for Python 3.8, 3.9, 3.10.
+- Add support for Python 3.8, 3.9, 3.10. [icemac]
 
-- Drop support for Python 3.4.
+- Drop support for Python 3.4. [icemac]
 
-- Drop support for running the tests using ``python setup.py test``.
+- Drop support for running the tests using ``python setup.py test``. [icemac]
 
 
 4.0 (2018-11-27)
