@@ -32,11 +32,12 @@ Exceptions:
 """
 
 import array
-from ast import literal_eval
 import codecs
-from email.parser import HeaderParser
 import struct
 import sys
+from ast import literal_eval
+from email.parser import HeaderParser
+
 
 PY3 = sys.version_info[0] == 3
 if PY3:

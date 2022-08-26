@@ -1,6 +1,8 @@
 import os.path
-from setuptools import setup
+
 from setuptools import find_packages
+from setuptools import setup
+
 
 version = '4.1.dev0'
 
