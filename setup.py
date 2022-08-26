@@ -1,5 +1,6 @@
 import os.path
 from setuptools import setup
+from setuptools import find_packages
 
 version = '4.1.dev0'
 
@@ -39,9 +40,9 @@ setup(
     author_email='hanno@hannosch.eu',
     url='https://github.com/hannosch/python-gettext',
     license='BSD',
-    packages=['pythongettext', 'pythongettext.tests'],
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
     install_requires=install_requires,
     include_package_data=True,
     zip_safe=False,
-    test_suite="pythongettext.tests",
 )

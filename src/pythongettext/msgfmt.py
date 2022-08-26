@@ -47,7 +47,7 @@ if PY3:
     import io
     BytesIO = io.BytesIO
     FILE_TYPE = io.IOBase
-else:
+else:  # pragma: no cover
     def header_charset(s):
         p = HeaderParser()
         return p.parsestr(s.encode('utf-8', 'ignore')).get_content_charset()
@@ -159,7 +159,7 @@ class Msgfmt:
                              0, keystart)       # size and offset of hash table
         if PY3:
             output += array.array("i", offsets).tobytes()
-        else:
+        else:  # pragma: no cover
             output += array.array("i", offsets).tostring()
         output += ids
         output += strs
