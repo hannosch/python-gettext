@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.1 (unreleased)
+4.1 (2022-08-26)
 ----------------
 
 - Add support for Python 3.8, 3.9, 3.10. [icemac]
