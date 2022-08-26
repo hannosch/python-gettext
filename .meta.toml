@@ -22,3 +22,19 @@ fail-under = 90
 
 [coverage-run]
 source = "pythongettext"
+
+[manifest]
+additional-rules = [
+    "recursive-include src *.po",
+    "recursive-include src *.pot",
+    ]
+
+[check-manifest]
+ignore-bad-ideas = [
+    "src/pythongettext/tests/test.mo",
+    "src/pythongettext/tests/test2.mo",
+    "src/pythongettext/tests/test3.mo",
+    "src/pythongettext/tests/test6.mo",
+    "src/pythongettext/tests/test_empty.mo",
+    "src/pythongettext/tests/test_unicode_bom.mo",
+    ]
