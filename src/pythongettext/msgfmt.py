@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: iso-8859-1 -*-
 # Written by Martin v. Loewis <loewis@informatik.hu-berlin.de>
 #
 # Changed by Christian 'Tiran' Heimes <tiran@cheimes.de> for the placeless
@@ -33,28 +32,15 @@ Exceptions:
 
 import array
 import codecs
+import io
 import struct
-import sys
 from ast import literal_eval
 from email.parser import HeaderParser
 
 
-PY3 = sys.version_info[0] == 3
-if PY3:
-    def header_charset(s):
-        p = HeaderParser()
-        return p.parsestr(s).get_content_charset()
-
-    import io
-    BytesIO = io.BytesIO
-    FILE_TYPE = io.IOBase
-else:  # pragma: no cover
-    def header_charset(s):
-        p = HeaderParser()
-        return p.parsestr(s.encode('utf-8', 'ignore')).get_content_charset()
-
-    from cStringIO import StringIO as BytesIO
-    FILE_TYPE = file  # noqa: F821 undefined name 'file'
+def header_charset(s):
+    p = HeaderParser()
+    return p.parsestr(s).get_content_charset()
 
 
 class PoSyntaxError(Exception):
@@ -83,7 +69,7 @@ class Msgfmt:
         output = []
         if isinstance(self.po, str):
             output = open(self.po, 'rb')
-        elif isinstance(self.po, FILE_TYPE):
+        elif isinstance(self.po, io.IOBase):
             self.po.seek(0)
             self.openfile = True
             output = self.po
@@ -91,7 +77,7 @@ class Msgfmt:
             output = self.po
         if not output:
             raise ValueError("self.po is invalid! %s" % type(self.po))
-        if isinstance(output, FILE_TYPE):
+        if isinstance(output, io.IOBase):
             # remove BOM from the start of the parsed input
             first = output.readline()
             if len(first) == 0:
@@ -106,16 +92,13 @@ class Msgfmt:
         if string and not fuzzy:
             # The context is put before the id and separated by a EOT char.
             if context:
-                id = context + u'\x04' + id
+                id = context + '\x04' + id
             if not id:
                 # See whether there is an encoding declaration
                 charset = header_charset(string)
                 if charset:
                     # decode header in proper encoding
                     string = string.encode(self.encoding).decode(charset)
-                    if not PY3:
-                        # undo damage done by literal_eval in Python 2.x
-                        string = string.encode(self.encoding).decode(charset)
                     self.encoding = charset
             self.messages[id] = string
 
@@ -158,10 +141,7 @@ class Msgfmt:
                              7 * 4,             # start of key index
                              7 * 4 + len(keys) * 8,  # start of value index
                              0, keystart)       # size and offset of hash table
-        if PY3:
-            output += array.array("i", offsets).tobytes()
-        else:  # pragma: no cover
-            output += array.array("i", offsets).tostring()
+        output += array.array("i", offsets).tobytes()
         output += ids
         output += strs
         return output
@@ -180,7 +160,7 @@ class Msgfmt:
 
         section = None
         fuzzy = 0
-        msgid = msgstr = msgctxt = u''
+        msgid = msgstr = msgctxt = ''
 
         # Parse the catalog
         lno = 0
@@ -207,7 +187,7 @@ class Msgfmt:
             if l_.startswith('msgctxt'):
                 section = CTXT
                 l_ = l_[7:]
-                msgctxt = u''
+                msgctxt = ''
             # Now we are in a msgid section, output previous section
             elif (l_.startswith('msgid') and
                   not l_.startswith('msgid_plural')):
@@ -215,7 +195,7 @@ class Msgfmt:
                     self.add(msgid, msgstr, fuzzy)
                 section = ID
                 l_ = l_[5:]
-                msgid = msgstr = u''
+                msgid = msgstr = ''
                 is_plural = False
             # This is a message with plural forms
             elif l_.startswith('msgid_plural'):
@@ -225,7 +205,7 @@ class Msgfmt:
                         'msgid on line %d of po file %s' %
                         (lno, repr(self.name)))
                 l_ = l_[12:]
-                msgid += u'\0'  # separator of singular and plural
+                msgid += '\0'  # separator of singular and plural
                 is_plural = True
             # Now we are in a msgstr section
             elif l_.startswith('msgstr'):
@@ -239,7 +219,7 @@ class Msgfmt:
                     l_ = l_.split(']', 1)[1]
                     if msgstr:
                         # Separator of the various plural forms
-                        msgstr += u'\0'
+                        msgstr += '\0'
                 else:
                     if is_plural:
                         raise PoSyntaxError(
@@ -279,4 +259,4 @@ class Msgfmt:
             self.po.close()
 
     def getAsFile(self):
-        return BytesIO(self.get())
+        return io.BytesIO(self.get())

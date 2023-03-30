@@ -12,7 +12,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 try:
     README = open(os.path.join(here, 'README.rst')).read()
     CHANGES = open(os.path.join(here, 'CHANGES.rst')).read()
-except IOError:
+except OSError:
     README = CHANGES = ''
 
 setup(
@@ -44,6 +44,7 @@ setup(
     license='BSD',
     packages=find_packages('src'),
     package_dir={'': 'src'},
+    python_requires='>=3.7',
     install_requires=install_requires,
     include_package_data=True,
     zip_safe=False,
