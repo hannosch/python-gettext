@@ -4,7 +4,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = '4.2.dev0'
+version = '5.0.dev0'
 
 install_requires = []
 
@@ -12,7 +12,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 try:
     README = open(os.path.join(here, 'README.rst')).read()
     CHANGES = open(os.path.join(here, 'CHANGES.rst')).read()
-except IOError:
+except OSError:
     README = CHANGES = ''
 
 setup(
@@ -26,15 +26,12 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Internationalization',
@@ -47,6 +44,7 @@ setup(
     license='BSD',
     packages=find_packages('src'),
     package_dir={'': 'src'},
+    python_requires='>=3.7',
     install_requires=install_requires,
     include_package_data=True,
     zip_safe=False,

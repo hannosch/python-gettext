@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import unittest
 
@@ -45,8 +44,8 @@ class TestWriter(unittest.TestCase):
         po.read(header_only=True)
         po_file.close()
         self.assertTrue(
-            po.messages[u''].startswith('Project-Id-Version: foo'))
-        self.assertEqual(po.encoding, u'iso-8859-1')
+            po.messages[''].startswith('Project-Id-Version: foo'))
+        self.assertEqual(po.encoding, 'iso-8859-1')
 
     def test_test5(self):
         po_file = open(os.path.join(FOLDER, 'test5.po'), 'rb')
@@ -56,17 +55,17 @@ class TestWriter(unittest.TestCase):
                 po.read()
         finally:
             po_file.close()
-        self.assertEqual(po.encoding, u'utf-8')
+        self.assertEqual(po.encoding, 'utf-8')
 
     def test_test5_unicode_name(self):
         po_file = open(os.path.join(FOLDER, 'test5.po'), 'rb')
-        po = Msgfmt(po_file, name=u'dømain')
+        po = Msgfmt(po_file, name='dømain')
         try:
             with self.assertRaises(PoSyntaxError):
                 po.read()
         finally:
             po_file.close()
-        self.assertEqual(po.encoding, u'utf-8')
+        self.assertEqual(po.encoding, 'utf-8')
 
     def test_test6(self):
         self.compare_po_mo('test6.po', 'test6.mo')
@@ -76,9 +75,9 @@ class TestWriter(unittest.TestCase):
         po = Msgfmt(po_file)
         po.read(header_only=True)
         po_file.close()
-        self.assertTrue(po.messages[u''].startswith(
-            u'Project-Id-Version: Tøst 1.0'))
-        self.assertEqual(po.encoding, u'utf-8')
+        self.assertTrue(po.messages[''].startswith(
+            'Project-Id-Version: Tøst 1.0'))
+        self.assertEqual(po.encoding, 'utf-8')
 
     def test_escape(self):
         po_file = open(os.path.join(FOLDER, 'test_escape.po'), 'rb')
@@ -87,7 +86,7 @@ class TestWriter(unittest.TestCase):
             with self.assertRaises(PoSyntaxError) as e:
                 po.read()
             self.assertTrue('line 19' in e.exception.msg)
-            self.assertEqual(po.encoding, u'utf-8')
+            self.assertEqual(po.encoding, 'utf-8')
         finally:
             po_file.close()
 
@@ -103,5 +102,5 @@ class TestWriter(unittest.TestCase):
             po_file.close()
         self.assertEqual(
             set(po.messages.keys()),
-            set([u'', u'm1', u'm2 ø\x00{d} ømsgid',
-                 u'øcontext\x04m3 ø\x00{d} ømsgid context']))
+            {'', 'm1', 'm2 ø\x00{d} ømsgid',
+                 'øcontext\x04m3 ø\x00{d} ømsgid context'})
